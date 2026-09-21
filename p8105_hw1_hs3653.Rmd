@@ -17,4 +17,16 @@ knitr::opts_chunk$set(
 
 # Problem 1
 
+```{r load_penguins}
+data("penguins", package = "palmerpenguins")
+```
+
+The penguins dataset contains `r nrow(penguins)` observations and `r ncol(penguins)` variables. Each row represents an individual penguin. Important variables include `species` (`r paste(levels(penguins$species), collapse = ", ")`), `island` (`r paste(levels(penguins$island), collapse = ", ")`), `sex`, and `year`, as well as measurements of bill length, bill depth, flipper length, and body mass. The mean flipper length is `r round(mean(pull(penguins, flipper_length_mm), na.rm = TRUE), 2)` mm.
+
+```{r penguin_scatterplot}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+ggsave("penguin_scatterplot.png")
+```
+
+
 # Problem 2
