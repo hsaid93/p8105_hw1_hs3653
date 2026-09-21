@@ -25,8 +25,47 @@ The penguins dataset contains `r nrow(penguins)` observations and `r ncol(pengui
 
 ```{r penguin_scatterplot}
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+
 ggsave("penguin_scatterplot.png")
 ```
 
 
 # Problem 2
+```{r create_df}
+set.seed(0)
+
+p2_df = tibble(
+  num_var = rnorm(n = 10),
+  log_var = num_var > 0,
+  char_var = c(
+    "one", "two", "three", "four", "five",
+    "six", "seven", "eight", "nine", "ten"
+  ),
+  factor_var = factor(
+    c("A", "B", "C", "A", "B", "C", "A", "B", "C", "A")
+  )
+)
+
+p2_df
+```
+
+
+```{r calculate_mean}
+mean(pull(p2_df, num_var))
+mean(pull(p2_df, log_var))
+mean(pull(p2_df, char_var))
+mean(pull(p2_df, factor_var))
+```
+
+I used `pull()` to try to calculate the mean of each variable. The mean worked for `num_var`. It also worked for `log_var` because R treats `TRUE` as 1 and `FALSE` as 0, so the result is the proportion of sampled values greater than zero. The means of `char_var` and `factor_var` did not work and returned missing values.
+
+```{r convert_variables, results = "hide"}
+as.numeric(pull(p2_df, log_var))
+as.numeric(pull(p2_df, char_var))
+as.numeric(pull(p2_df, factor_var))
+```
+
+After converting the variables to numeric, `log_var` became 1 for `TRUE` and 0 for `FALSE`, which explains why its mean worked. Converting `char_var` produced missing values because R can't interpret words like `"one"` and `"two"` as numbers. Converting `factor_var` produced the codes 1, 2, and 3 for its levels, but these are just category labels, so taking their mean doesn't make much sense.
+
+
+
