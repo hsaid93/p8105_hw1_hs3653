@@ -1,0 +1,20 @@
+---
+title: "Homework 1"
+author: "Hyder Said"
+date: "2026-09-21"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+# Problem 1
+
+# Problem 2
